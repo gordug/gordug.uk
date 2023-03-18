@@ -5,6 +5,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddSingleton<IFileMonitor, FileMonitor>();
+builder.Services.AddTransient<ISyntaxHighlighter, SyntaxHighlighterFile>();
+builder.Services.AddTransient<ISourceFiles, SourceFiles>();
+builder.Services.AddSingleton<ICodeScroller, CodeScroller>();
+builder.Services.AddSingleton<CancellationTokenSource>();
 
 var app = builder.Build();
 
