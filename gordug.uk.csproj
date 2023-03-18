@@ -7,4 +7,16 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="PygmentSharp.Core" Version="0.3.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Include="wwwroot\SourceFiles\Source01.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\ico\github.svg" />
+    </ItemGroup>
+
 </Project>

@@ -1,0 +1,21 @@
+﻿@using Microsoft.JSInterop
+
+@((MarkupString)RawHtml)
+
+@code {
+
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; }
+
+    [Parameter]
+    public string RawHtml { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("twttr.widgets.load");
+        }
+    }
+
+}
