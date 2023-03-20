@@ -3,9 +3,7 @@
   &lt;Project Location="C:\Users\gordu\RiderProjects\gordug.uk\SourceFiles.Tests" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;SourceFiles.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2e214859_002Dc930_002D4253_002D8cb8_002Da7eeaa185081/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CodeScroller_HighLightCodeLines_ShouldYieldHighlightedCodeLines" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::44B0699D-89E2-41D1-9986-D1098D1F57BA::net7.0::gordug.uk.Tests.CodeScrollerTests&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+  &lt;Project Location="C:\Users\gordu\RiderProjects\gordug.uk\gordug.uk.Tests" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;gordug.uk.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b1dc6d0d_002D1d24_002D4fae_002Db3a8_002D310cbeb36bbf/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;SourceFiles.Tests&amp;gt; #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
