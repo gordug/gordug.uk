@@ -1,0 +1,15 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=19c44bd3_002Da549_002D4ac5_002Db62f_002D23156de62ba8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;Tests&amp;gt;\&amp;lt;SourceFiles.Tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="C:\Users\gordu\RiderProjects\gordug.uk\SourceFiles.Tests" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;SourceFiles.Tests&amp;gt;" /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2e214859_002Dc930_002D4253_002D8cb8_002Da7eeaa185081/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CodeScroller_HighLightCodeLines_ShouldYieldHighlightedCodeLines" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="C:\Users\gordu\RiderProjects\gordug.uk\gordug.uk.Tests" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;gordug.uk.Tests&amp;gt;" /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b1dc6d0d_002D1d24_002D4fae_002Db3a8_002D310cbeb36bbf/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;SourceFiles.Tests&amp;gt; #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::44B0699D-89E2-41D1-9986-D1098D1F57BA::net7.0::SourceFiles.Tests.SourceFilesTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f9ddd947_002Db0c8_002D4736_002D88fb_002D448bc6850627/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;SourceFiles.Tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="C:\Users\gordu\RiderProjects\gordug.uk\gordug.uk.Tests" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;gordug.uk.Tests&amp;gt;" /&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

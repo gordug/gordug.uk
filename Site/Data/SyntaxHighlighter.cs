@@ -1,10 +1,7 @@
-﻿using PygmentSharp.Core.Formatting;
-
-namespace gordug.uk.Data;
+﻿namespace gordug.uk.Data;
 
 public abstract class SyntaxHighlighter : ISyntaxHighlighter
 {
-    internal readonly HtmlFormatter HtmlFormatter = new();
     public string Output { get; set; }
     public string Source { get; set; }
 
@@ -12,7 +9,6 @@ public abstract class SyntaxHighlighter : ISyntaxHighlighter
     {
         Output = string.Empty;
         Source = string.Empty;
-        HtmlFormatter.Options.ClassPrefix = "code-scroller";
     }
     
     public abstract void Highlight();
