@@ -38,9 +38,10 @@ public class CodeScroller : IDisposable, ICodeScroller
         await Start();
         while (!cancellationToken.IsCancellationRequested)
         {
-            await foreach (var line in HighLightCodeLines(cancellationToken))
+            var code = HighLightCodeLines(cancellationToken).GetAsyncEnumerator(cancellationToken);
+            while (await code.MoveNextAsync())
             {
-                yield return line;
+                yield return code.Current;
             }
             await Task.Delay(10000, cancellationToken);
             yield break;
@@ -51,9 +52,9 @@ public class CodeScroller : IDisposable, ICodeScroller
     /// <summary>
     /// Randomly chooses one file from the available paths and populates Code with the contents 
     /// </summary>
-    private string PickCodeFile()
+    internal string PickCodeFile()
     {
-        return _paths[_random.Next(0, _paths.Length)];
+        return _paths.Length == 0 ? string.Empty : _paths[_random.Next(0, _paths.Length)];
     }
     
     internal async Task Start()
@@ -75,13 +76,14 @@ public class CodeScroller : IDisposable, ICodeScroller
             if (cancellationToken.IsCancellationRequested) break;
             HighlightCode();
             if (string.IsNullOrWhiteSpace(_code)) break;
-            SplitCodeLines();
-            var lines = _code.Split("\n");
+            var lines = SplitCodeLines();
+            
             if (lines.Length == 0) break;
-            foreach (var line in lines)
+            var codeEnumerator = lines.GetEnumerator();
+            while (codeEnumerator.MoveNext())
             {
                 if (cancellationToken.IsCancellationRequested) break;
-                yield return line;
+                yield return codeEnumerator.Current as string ?? string.Empty;
             }
             yield break;
         }
@@ -90,7 +92,7 @@ public class CodeScroller : IDisposable, ICodeScroller
     /// <summary>
     /// Calls the SyntaxHighlighter to highlight the code and populates the Code property with the output
     /// </summary>
-    private void HighlightCode()
+    internal void HighlightCode()
     {
         _syntaxHighlighter.Source = PickCodeFile();
         _syntaxHighlighter.Highlight();
@@ -100,17 +102,18 @@ public class CodeScroller : IDisposable, ICodeScroller
     /// <summary>
     /// Adds a new line after the pre tag to allow the code to be trimmed in the view
     /// </summary>
-    private void SplitCodeLines()
+    internal string [] SplitCodeLines()
     {
         _code = _code.Insert(
             _code.IndexOf(">", _code.IndexOf("pre style", StringComparison.Ordinal), StringComparison.Ordinal) + 1,
             "\n");
+        return _code.Split("\n");
     }
     
     /// <summary>
     /// Starts the file monitor and populates the paths array with the paths of the files in the SourceFiles directory
     /// </summary>
-    private void StartWatching()
+    internal void StartWatching()
     {
         _paths = _sourceFiles.Paths();
         _fileMonitor.StartWatching(OnFileChanged);
@@ -119,7 +122,7 @@ public class CodeScroller : IDisposable, ICodeScroller
     /// <summary>
     /// Stops the file monitor
     /// </summary>
-    private void StopWatching()
+    internal void StopWatching()
     {
         _fileMonitor.StopWatching();
     }
@@ -128,7 +131,7 @@ public class CodeScroller : IDisposable, ICodeScroller
     /// Action to be performed when a file is changed
     /// </summary>
     /// <param name="path">Path of the file changed from the raised event</param>
-    private void OnFileChanged(string path)
+    internal void OnFileChanged(string path)
     {
         if (_paths.Contains(path)) return;
         _paths = _paths.Append(path).ToArray();
