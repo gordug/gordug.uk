@@ -12,6 +12,12 @@ public class CodeScroller : IDisposable, ICodeScroller
     private string[] _paths = Array.Empty<string>();
     private bool _isRunning;
 
+    /// <summary>
+    /// CodeScroller constructor with DI for ISyntaxHighlighter, IFileMonitor and ISourceFiles
+    /// </summary>
+    /// <param name="syntaxHighlighter"></param>
+    /// <param name="fileMonitor"></param>
+    /// <param name="sourceFiles"></param>
     public CodeScroller(
         ISyntaxHighlighter syntaxHighlighter, 
         IFileMonitor fileMonitor, 
@@ -22,6 +28,11 @@ public class CodeScroller : IDisposable, ICodeScroller
         _sourceFiles = sourceFiles;
     }
     
+    /// <summary>
+    /// Returns a string of highlighted code from a random file in the SourceFiles directory per iteration
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async IAsyncEnumerable<string> CodeScroll([EnumeratorCancellation] CancellationToken cancellationToken)
     {
         await Start();
@@ -45,11 +56,11 @@ public class CodeScroller : IDisposable, ICodeScroller
         return _paths[_random.Next(0, _paths.Length)];
     }
     
-    private async Task Start()
+    internal async Task Start()
     {
         if (_isRunning) return;
         _paths = _sourceFiles.Paths().Distinct().ToArray();
-        await Task.FromResult(StartWatching);
+        StartWatching();
         _isRunning = true;
     }
 
@@ -57,53 +68,75 @@ public class CodeScroller : IDisposable, ICodeScroller
     /// takes each line of code, highlights it and returns it as a string
     /// </summary>
     /// <returns>Each line of highlighted code</returns>
-    private async IAsyncEnumerable<string> HighLightCodeLines([EnumeratorCancellation] CancellationToken cancellationToken)
+    internal async IAsyncEnumerable<string> HighLightCodeLines([EnumeratorCancellation] CancellationToken cancellationToken)
     {
         while (!cancellationToken.IsCancellationRequested)
         {
+            if (cancellationToken.IsCancellationRequested) break;
             HighlightCode();
+            if (string.IsNullOrWhiteSpace(_code)) break;
             SplitCodeLines();
             var lines = _code.Split("\n");
+            if (lines.Length == 0) break;
             foreach (var line in lines)
             {
+                if (cancellationToken.IsCancellationRequested) break;
                 yield return line;
             }
             yield break;
         }
     }
 
+    /// <summary>
+    /// Calls the SyntaxHighlighter to highlight the code and populates the Code property with the output
+    /// </summary>
     private void HighlightCode()
     {
         _syntaxHighlighter.Source = PickCodeFile();
         _syntaxHighlighter.Highlight();
         _code = _syntaxHighlighter.Output;
     }
-
+    
+    /// <summary>
+    /// Adds a new line after the pre tag to allow the code to be trimmed in the view
+    /// </summary>
     private void SplitCodeLines()
     {
         _code = _code.Insert(
             _code.IndexOf(">", _code.IndexOf("pre style", StringComparison.Ordinal), StringComparison.Ordinal) + 1,
             "\n");
     }
-
+    
+    /// <summary>
+    /// Starts the file monitor and populates the paths array with the paths of the files in the SourceFiles directory
+    /// </summary>
     private void StartWatching()
     {
         _paths = _sourceFiles.Paths();
         _fileMonitor.StartWatching(OnFileChanged);
     }
-
+    
+    /// <summary>
+    /// Stops the file monitor
+    /// </summary>
     private void StopWatching()
     {
         _fileMonitor.StopWatching();
     }
 
+    /// <summary>
+    /// Action to be performed when a file is changed
+    /// </summary>
+    /// <param name="path">Path of the file changed from the raised event</param>
     private void OnFileChanged(string path)
     {
         if (_paths.Contains(path)) return;
         _paths = _paths.Append(path).ToArray();
     }
 
-    /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
+    /// <summary>
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+    /// </summary>
     void IDisposable.Dispose()
     {
         if (!_isRunning) return;

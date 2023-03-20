@@ -1,5 +1,3 @@
-using gordug.uk.Data;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,9 +5,10 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<IFileMonitor, FileMonitor>();
 builder.Services.AddTransient<ISyntaxHighlighter, SyntaxHighlighterFile>();
-builder.Services.AddTransient<ISourceFiles, SourceFiles>();
+builder.Services.AddTransient<ISourceFiles, gordug.uk.Data.SourceFiles>();
 builder.Services.AddSingleton<ICodeScroller, CodeScroller>();
 builder.Services.AddSingleton<CancellationTokenSource>();
+builder.Services.Configure<CodeScrollerOptions>(builder.Configuration.GetSection(nameof(CodeScrollerOptions)));
 
 var app = builder.Build();
 
