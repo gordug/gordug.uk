@@ -8,5 +8,25 @@
     -webkit-align-items: center;
     align-items: center;
     text-align: center;
-    min-height: 90vh;
+    flex: available;
+}
+
+.carousel-item {
+    height: 70vh;
+    width: 70vw;
+    overflow: unset;
+    overflow-y: scroll;
+    background-color: #002b36;
+    color: #FDF6E3;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.carousel-item img {
+    max-height: 70vh;
+    max-width: 70vw;
+}
+
+.carousel-item::-webkit-scrollbar {
+    display: none;
 }
