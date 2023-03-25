@@ -12,21 +12,22 @@
                     Github
                 </i>
             </a>
-            </p>
+        </p>
         <p class="card-text">This is a demo written in C# with similar function but greater limitations around Syntax Hightlighting</p>
-        <div class="card-text highlight" style="height: 400px; overflow: hidden">
+        <div class="card-text highlight overflow-hidden">
             @if (Scroller is {} && TextAreaValue is {Count: > 0})
             {
                 @((MarkupString)Code)
             }
         </div>
         <label for="scrollSpeed">Scroll Speed @(ScrollSpeed)</label>
-        <input type="range" class="form-control-range" id="scrollSpeed" min="100" max="1000" @bind="ScrollSpeed" />
-        <p class="card-footer">The original code is written in Python, however as this site was in Blazor there were issues porting it. I have put together this basic example using
+        <input type="range" class="form-control-range" id="scrollSpeed" min="100" max="1000" @bind="ScrollSpeed"/>
+        <p class="card-footer">
+            The original code is written in Python, however as this site was in Blazor there were issues porting it. I have put together this basic example using
             <a href="https://github.com/akatakritos/PygmentSharp" target="_blank" class="btn btn-outline-dark">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
                     <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-                </svg> 
+                </svg>
                 PygmentSharp
             </a>and original code based on the original.
         </p>
@@ -35,16 +36,19 @@
 
 
 @code {
+
     [Inject]
     ICodeScroller? Scroller { get; set; }
+
     [Inject]
     CancellationTokenSource? CancellationTokenSource { get; set; }
+
     private CancellationToken CancellationToken { get; set; }
     private List<string> TextAreaValue { get; set; } = new();
     private string Code { get; set; } = string.Empty;
     private int ScrollSpeed { get; set; } = 750;
-    const int MaxLines = 20;
-    const int MaxScrollSpeed = 1000;
+        const int MaxLines = 20;
+        const int MaxScrollSpeed = 1000;
 
     protected override async Task OnInitializedAsync()
     {
@@ -62,12 +66,12 @@
             await Scroll(CancellationToken);
         }
     }
-    
+
     async Task Scroll(CancellationToken cancellationToken)
     {
         TextAreaValue.Clear();
         StateHasChanged();
-        await foreach(var line in Scroller!.CodeScroll(CancellationToken))
+        await foreach (var line in Scroller!.CodeScroll(CancellationToken))
         {
             if (cancellationToken.IsCancellationRequested)
             {
@@ -83,6 +87,5 @@
             await Task.Delay(MaxScrollSpeed - ScrollSpeed, cancellationToken);
         }
     }
-    
-    
+
 }
