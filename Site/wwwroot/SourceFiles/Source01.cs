@@ -1,13 +1,16 @@
 ﻿using System.Text;
 
-internal static class InputScrambler {
-    private static readonly char[] AcceptedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".ToCharArray();
+internal static class InputScrambler
+{
+    private static readonly char[] AcceptedCharacters =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".ToCharArray();
 
-    static InputScrambler() {
+    static InputScrambler()
+    {
         AcceptedCharacters = AcceptedCharacters.Concat(" !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~".ToCharArray()).ToArray();
     }
 
-    public static void Main(string[] args)
+    public static void StartScramble()
     {
         ConsoleKeyInfo key;
         var characterIndex = 0;
@@ -65,6 +68,7 @@ internal static class InputScrambler {
                 {
                     continue;
                 }
+
                 try
                 {
                     File.WriteAllText(path, sb.ToString());
@@ -106,6 +110,7 @@ internal static class InputScrambler {
                 var i = (index - characterIndex++) % AcceptedCharacters.Length;
                 if (i >= 0 && i < AcceptedCharacters.Length) sb.Append(AcceptedCharacters[i]);
             }
+
             return sb.ToString();
         }
     }
