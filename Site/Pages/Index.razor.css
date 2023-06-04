@@ -54,3 +54,10 @@
 .carousel-item::-webkit-scrollbar {
     display: none;
 }
+
+.password-generator-card {
+    max-width: 800px;
+    max-height: 800px;
+    overflow: unset;
+    overflow-y: scroll;
+}

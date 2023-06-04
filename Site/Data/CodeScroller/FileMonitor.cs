@@ -1,19 +1,19 @@
 ﻿using Microsoft.Extensions.Options;
 
-namespace gordug.uk.Data;
+namespace gordug.uk.Data.CodeScroller;
 
 public class FileMonitor : IFileMonitor
 {
-    private List<FileSystemWatcher> _watcher = new();
-    private Action<string>? _callback;
     private readonly IOptions<CodeScrollerOptions> _options;
+    private Action<string>? _callback;
+    private List<FileSystemWatcher> _watcher = new();
 
     public FileMonitor(IOptions<CodeScrollerOptions> options)
     {
         _options = options;
     }
-    
-    public void StartWatching (Action<string>? callback)
+
+    public void StartWatching(Action<string>? callback)
     {
         var filterEnumerator = _options.Value.SearchPattern.Split(',').GetEnumerator();
         while (filterEnumerator.MoveNext())
@@ -32,6 +32,7 @@ public class FileMonitor : IFileMonitor
             watcher.Renamed += OnChanged;
             _watcher.Add(watcher);
         }
+
         _callback = callback;
     }
 

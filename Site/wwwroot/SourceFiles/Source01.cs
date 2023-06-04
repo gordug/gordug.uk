@@ -1,5 +1,7 @@
 ﻿using System.Text;
 
+namespace gordug.uk.wwwroot.SourceFiles;
+
 internal static class InputScrambler
 {
     private static readonly char[] AcceptedCharacters =

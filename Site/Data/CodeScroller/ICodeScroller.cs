@@ -1,4 +1,4 @@
-﻿namespace gordug.uk.Data;
+﻿namespace gordug.uk.Data.CodeScroller;
 
 public interface ICodeScroller
 {

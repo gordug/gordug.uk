@@ -1,6 +1,6 @@
 ﻿using PygmentSharp.Core;
 
-namespace gordug.uk.Data;
+namespace gordug.uk.Data.CodeScroller;
 
 public class SyntaxHighlighterFile : SyntaxHighlighter, ISyntaxHighlighter
 {
