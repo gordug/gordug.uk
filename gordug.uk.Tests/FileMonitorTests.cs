@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using gordug.uk.Data;
+using gordug.uk.Data.CodeScroller;
 using gordug.uk.Options;
 using Xunit;
 
@@ -41,7 +41,7 @@ public class FileMonitorTests : IDisposable
         }
 
         _fileMonitor.StartWatching(Callback);
-        
+
         var testFilePath = Path.Combine(_testDirectory, "testfile.cs");
         File.WriteAllText(testFilePath, "test content");
         File.WriteAllText(testFilePath, "updated content");

@@ -10,7 +10,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="PygmentSharp.Core" Version="0.3.1" />
+        <PackageReference Include="PygmentSharp.Core" Version="0.3.1"/>
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="7.0.0"/>
+        <PackageReference Include="Serilog.Sinks.Console" Version="4.1.1-dev-00910"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -19,6 +21,11 @@
 
     <ItemGroup>
         <_ContentIncludedByDefault Remove="wwwroot\ico\github.svg"/>
+        <_ContentIncludedByDefault Remove="PasswordGenerator\Component1.razor"/>
+        <_ContentIncludedByDefault Remove="PasswordGenerator\_Imports.razor"/>
+        <_ContentIncludedByDefault Remove="PasswordGenerator\obj\PasswordGenerator.csproj.nuget.dgspec.json"/>
+        <_ContentIncludedByDefault Remove="PasswordGenerator\obj\project.assets.json"/>
+        <_ContentIncludedByDefault Remove="PasswordGenerator\obj\project.packagespec.json"/>
     </ItemGroup>
 
     <ItemGroup>

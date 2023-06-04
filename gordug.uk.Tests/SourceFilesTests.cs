@@ -1,4 +1,5 @@
 using FluentAssertions;
+using gordug.uk.Data.CodeScroller;
 using gordug.uk.Options;
 using Xunit;
 
@@ -7,7 +8,7 @@ namespace gordug.uk.Tests;
 public class SourceFilesTests : IDisposable
 {
     private readonly CodeScrollerOptions _codeScrollerOptions;
-    private readonly gordug.uk.Data.SourceFiles _sourceFiles;
+    private readonly SourceFiles _sourceFiles;
     private readonly string _testDirectory;
 
     public SourceFilesTests()
@@ -18,7 +19,7 @@ public class SourceFilesTests : IDisposable
             SearchPattern = "*.cs, *.sh, *.html, *.css, *.js, *.bash, *.xml, *.ts, *.sql"
         };
         var options = Microsoft.Extensions.Options.Options.Create(_codeScrollerOptions);
-        _sourceFiles = new gordug.uk.Data.SourceFiles(options);
+        _sourceFiles = new SourceFiles(options);
         _testDirectory = CreateTestDirectory();
     }
 

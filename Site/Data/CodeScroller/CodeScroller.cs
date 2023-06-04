@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace gordug.uk.Data;
+namespace gordug.uk.Data.CodeScroller;
 
 public class CodeScroller : IDisposable, ICodeScroller
 {

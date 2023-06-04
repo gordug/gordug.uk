@@ -1,15 +1,34 @@
+using Serilog;
+using Serilog.Core;
+using Serilog.Events;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<IFileMonitor, FileMonitor>();
-builder.Services.AddTransient<ISyntaxHighlighter, SyntaxHighlighterFile>();
-builder.Services.AddTransient<ISourceFiles, SourceFiles>();
-builder.Services.AddSingleton<ICodeScroller, CodeScroller>();
+builder.Services.RegisterCodeScroller();
+builder.Services.RegisterPasswordGenerator(builder.Configuration);
 builder.Services.AddSingleton<CancellationTokenSource>();
 builder.Services.Configure<CodeScrollerOptions>(builder.Configuration.GetSection(nameof(CodeScrollerOptions)));
-
+builder.Logging.ClearProviders();
+Logger logger;
+#if DEBUG
+logger = new LoggerConfiguration()
+    .Enrich.FromLogContext()
+    .MinimumLevel.Verbose()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Verbose)
+    .WriteTo.Console()
+    .CreateLogger();
+#else
+logger = new LoggerConfiguration()
+    .Enrich.FromLogContext()
+    .MinimumLevel.Information()
+    .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
+    .WriteTo.Console()
+    .CreateLogger();
+#endif
+builder.Logging.AddSerilog(logger);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
