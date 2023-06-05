@@ -1,3 +1,4 @@
+using gordug.uk.Data.Common;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
@@ -11,15 +12,17 @@ builder.Services.RegisterCodeScroller();
 builder.Services.RegisterPasswordGenerator(builder.Configuration);
 builder.Services.AddSingleton<CancellationTokenSource>();
 builder.Services.Configure<CodeScrollerOptions>(builder.Configuration.GetSection(nameof(CodeScrollerOptions)));
+builder.Services.AddScoped<IClipboardService, ClipboardService>();
+
 builder.Logging.ClearProviders();
 Logger logger;
 #if DEBUG
 logger = new LoggerConfiguration()
-    .Enrich.FromLogContext()
-    .MinimumLevel.Verbose()
-    .MinimumLevel.Override("Microsoft", LogEventLevel.Verbose)
-    .WriteTo.Console()
-    .CreateLogger();
+         .Enrich.FromLogContext()
+         .MinimumLevel.Verbose()
+         .MinimumLevel.Override("Microsoft", LogEventLevel.Verbose)
+         .WriteTo.Console()
+         .CreateLogger();
 #else
 logger = new LoggerConfiguration()
     .Enrich.FromLogContext()

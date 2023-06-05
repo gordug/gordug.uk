@@ -21,7 +21,9 @@ public class PasswordOptions
         Password = string.Empty;
     }
 
-    [Range(1, 128)] public int Length { get; set; }
+    [Range(8, 128)]
+    public int Length { get; set; }
+
     public bool IncludeSpecialCharacters { get; set; }
     public bool IncludeNumbers { get; set; }
     public bool IncludeLowercase { get; set; }
