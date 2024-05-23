@@ -1,4 +1,7 @@
 using gordug.uk.Data.Common;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
@@ -13,6 +16,13 @@ builder.Services.RegisterPasswordGenerator(builder.Configuration);
 builder.Services.AddSingleton<CancellationTokenSource>();
 builder.Services.Configure<CodeScrollerOptions>(builder.Configuration.GetSection(nameof(CodeScrollerOptions)));
 builder.Services.AddScoped<IClipboardService, ClipboardService>();
+builder.Services.AddDataProtection()
+       .UseCryptographicAlgorithms(
+                                   new AuthenticatedEncryptorConfiguration
+                                   {
+                                       EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
+                                       ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
+                                   });
 
 builder.Logging.ClearProviders();
 Logger logger;
