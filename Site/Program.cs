@@ -23,6 +23,7 @@ builder.Services.AddDataProtection()
                                        EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
                                        ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
                                    });
+
 builder.Logging.ClearProviders();
 Logger logger;
 #if DEBUG
