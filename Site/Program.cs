@@ -1,3 +1,4 @@
+using gordug.uk.Data.Common;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
@@ -14,6 +15,7 @@ builder.Services.RegisterCodeScroller();
 builder.Services.RegisterPasswordGenerator(builder.Configuration);
 builder.Services.AddSingleton<CancellationTokenSource>();
 builder.Services.Configure<CodeScrollerOptions>(builder.Configuration.GetSection(nameof(CodeScrollerOptions)));
+builder.Services.AddScoped<IClipboardService, ClipboardService>();
 builder.Services.AddDataProtection()
        .UseCryptographicAlgorithms(
                                    new AuthenticatedEncryptorConfiguration
